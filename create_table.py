@@ -28,6 +28,16 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`)
 );
 
+CREATE TABLE `customers` (
+  `customer_id` int not null auto_increment,
+  `customer_name` varchar(80) not null,
+  `customer_address` varchar(100),
+  `customer_email` varchar(80),
+  `customer_phone` varchar(80),
+
+  PRIMARY KEY (`customer_id`)
+);
+
 CREATE TABLE `daily_operations` (
   `id` int not null auto_increment,
   `book_name` varchar(80) not null,

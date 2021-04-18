@@ -9,6 +9,7 @@ A software to manage books, customers and users in a library.
 - [Database Schema](#database-schema)
 - [Demo](#demo)
 - [Instructions to run](#instructions-to-run)
+- [Future Features](#future-features)
 
 
 ### Features
@@ -24,6 +25,9 @@ A software to manage books, customers and users in a library.
 ### Database Schema
 
 ### Demo
+
+The following gif shows the demo of the software.
+<div style="text-align:center"><img src="./demo.gif" /></div>
 
 
 ### Instructions to run
@@ -47,3 +51,9 @@ Reference:
 ```bash
   python index.py
 ```
+
+
+### Future Features
+
+1. Admin Login into the system.
+2. More Security Features like encryption of the passwords,etc.

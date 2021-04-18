@@ -25,6 +25,7 @@ class MainApp (QMainWindow,ui):
     self.show_publisher_combo_box()
     self.show_all_books()
     self.groupBox_4.setEnabled(False)
+    self.show_all_customers()
 
 
   def handle_buttons(self):
@@ -46,6 +47,14 @@ class MainApp (QMainWindow,ui):
     self.pushButton_12.clicked.connect(self.login_user)
     self.pushButton_14.clicked.connect(self.edit_user)
     self.pushButton_37.clicked.connect(self.open_customers_tab)
+    self.pushButton_33.clicked.connect(self.add_customer)
+    self.pushButton_34.clicked.connect(self.search_customer)
+    self.pushButton_36.clicked.connect(self.delete_customer)
+    self.pushButton_35.clicked.connect(self.edit_customer)
+
+
+
+
 
 
 
@@ -203,10 +212,8 @@ class MainApp (QMainWindow,ui):
     if data:
       self.tableWidget_10.setRowCount(1)
       for row,form in enumerate(data):
-        if row==2:
-          continue
         row_position = self.tableWidget_10.rowCount()
-        self.tableWidget_2.insertRow(row_position)
+        self.tableWidget_10.insertRow(row_position)
         for column,item in enumerate(form):
           print(item)
           self.tableWidget_10.setItem(row,column,QTableWidgetItem(str(item)))
@@ -473,18 +480,128 @@ class MainApp (QMainWindow,ui):
 
 ### Customers Tab
 
-def add_customer(self):
+  def add_customer(self):
+    self.db = MySQLdb.connect(host='localhost',user='temp',passwd='password',db='library_management')
+    self.cursor = self.db.cursor()
 
-  pass
+    customer_name = self.lineEdit_43.text()
+    customer_email = self.lineEdit_44.text()
+    customer_address = self.lineEdit_45.text()
+    customer_phone =  self.lineEdit_50.text()
+    
 
-def edit_customer(self):
-  pass
+    sql_query = """
 
-def search_customer(self):
-  pass
+      INSERT INTO customers (customer_name,customer_address,
+      customer_email,customer_phone)
+      values (%s,%s,%s,%s);
+    """
 
-def show_all_customers(self):
-  pass
+    self.cursor.execute(sql_query,(customer_name,customer_address,customer_email,customer_phone))
+    self.db.commit()
+    self.statusBar().showMessage('New Customer Added')
+    self.show_all_customers()
+    self.lineEdit_43.setText('')
+    self.lineEdit_44.setText('')
+    self.lineEdit_45.setText('')
+    self.lineEdit_50.setText('')
+
+  def edit_customer(self):
+    orig_customer_name =self.lineEdit_47.text()
+    
+
+
+    if orig_customer_name:
+        customer_name =self.lineEdit_49.text()
+        customer_email = self.lineEdit_46.text()
+        customer_address= self.lineEdit_48.text()
+        customer_phone = self.lineEdit_51.text()
+        self.db = MySQLdb.connect(host='localhost',user='temp',passwd='password',db="library_management")
+        self.cursor = self.db.cursor()
+        
+        sql_query="""
+          UPDATE customers SET customer_name =%s,customer_email=%s,customer_address=%s,customer_phone=%s WHERE
+          customer_name = %s;
+        """
+
+        self.cursor.execute(sql_query,(customer_name,customer_email,customer_address,customer_phone,orig_customer_name))
+        self.db.commit()
+        self.statusBar().showMessage('Customer Data Updated')
+        self.show_all_customers()
+      
+      
+
+  def search_customer(self):
+    self.db = MySQLdb.connect(host='localhost',user='temp',passwd='password',db="library_management")
+    self.cursor = self.db.cursor()
+
+    customer_name = self.lineEdit_47.text()
+    
+
+
+    if customer_name:
+
+      sql_query= """
+        SELECT * from customers;
+      """
+
+      self.cursor.execute(sql_query)
+      data = self.cursor.fetchall()
+      
+      for item in data:
+
+        if item[1]==customer_name :
+          print('Customer found')
+          self.statusBar().showMessage('Valid Customer')
+          self.groupBox_8.setEnabled(True)
+
+          self.lineEdit_49.setText(item[1])
+          self.lineEdit_46.setText(item[3])
+          self.lineEdit_48.setText(item[2])
+          self.lineEdit_51.setText(item[4])
+
+
+  def delete_customer(self):
+    self.db = MySQLdb.connect(host='localhost',user='temp',passwd='password',db="library_management")
+    self.cursor = self.db.cursor()
+
+    customer_name = self.lineEdit_47.text()
+    
+    warning = QMessageBox.warning(self,'Delete Book',"Are you sure you want to delete this book?",QMessageBox.Yes | QMessageBox.No)
+    if warning ==QMessageBox.Yes:
+      sql_query = """
+      DELETE from book where book_name=%s;
+      """
+      self.cursor.execute(sql_query,(customer_name,))
+      self.db.commit()
+      self.statusBar().showMessage('Customer Details Deleted')
+      self.lineEdit_49.setText('')
+      self.lineEdit_46.setText('')
+      self.lineEdit_48.setText('')
+      self.lineEdit_51.setText('')
+      self.show_all_customers()
+
+  def show_all_customers(self):
+    self.db = MySQLdb.connect(host='localhost',user='temp',passwd='password',db="library_management")
+    self.cursor = self.db.cursor()
+
+
+    sql_query = """
+      SELECT * from customers;
+    """
+    self.cursor.execute(sql_query)
+    data = self.cursor.fetchall()
+    print(data)
+    if data:
+      self.tableWidget_11.setRowCount(1)
+      for row,form in enumerate(data):
+      
+        row_position = self.tableWidget_11.rowCount()
+        self.tableWidget_11.insertRow(row_position)
+        for column,item in enumerate(form):
+          print(item)
+          self.tableWidget_11.setItem(row,column,QTableWidgetItem(str(item)))
+
 
 
 def main():

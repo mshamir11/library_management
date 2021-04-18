@@ -139,7 +139,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -331,10 +331,10 @@
      <widget class="QTabWidget" name="tabWidget_2">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>591</width>
-        <height>371</height>
+        <x>0</x>
+        <y>0</y>
+        <width>631</width>
+        <height>431</height>
        </rect>
       </property>
       <property name="layoutDirection">
@@ -364,8 +364,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>591</width>
-          <height>341</height>
+          <width>621</width>
+          <height>401</height>
          </rect>
         </property>
         <column>
@@ -806,10 +806,10 @@
      <widget class="QTabWidget" name="tabWidget_4">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>20</y>
-        <width>591</width>
-        <height>371</height>
+        <x>0</x>
+        <y>0</y>
+        <width>631</width>
+        <height>431</height>
        </rect>
       </property>
       <property name="layoutDirection">
@@ -822,7 +822,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <property name="movable">
        <bool>true</bool>
@@ -834,23 +834,13 @@
        <attribute name="title">
         <string>All Customers</string>
        </attribute>
-       <widget class="QTableWidget" name="tableWidget_9">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>591</width>
-          <height>341</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QTableWidget" name="tableWidget_11">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>591</width>
-          <height>341</height>
+          <width>621</width>
+          <height>401</height>
          </rect>
         </property>
         <column>
@@ -860,12 +850,12 @@
         </column>
         <column>
          <property name="text">
-          <string>Email</string>
+          <string>Address</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>Address</string>
+          <string>Email</string>
          </property>
         </column>
         <column>
